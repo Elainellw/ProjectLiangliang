@@ -1,0 +1,32 @@
+<!--pages/start/start.wxml-->
+<view class='page-section'>
+ </view>
+
+
+ <form bindsubmit="formSubmit1">
+<view class='submitSection'>
+  <view class="submitSentence" style="flex-direction:row;">
+       <view class='section_title'>句子接龙：</view>
+       <input name='inputSentence1' class="weui-input" maxlength="50" placeholder="关键词'{{keyWord}}'" />
+  </view>
+  <view class="submitSentence" style="flex-direction:row;">
+        <view class='section_title'>下一个关键词：</view>
+       <input name='inputSentence1' class="weui-input" maxlength="50" placeholder="在此输入" />
+       <button formType='submit' class="button_submit"> 提交 </button>
+  </view>
+</view>
+</form>
+
+
+
+
+
+
+  <view class='weui-cells_title'>设置下一个关键词</view>
+   <view class="weui-cell weui-cell_input">
+        <input class="weui-input" maxlength="10" bindinput="sentence2" placeholder="关键词2" />
+      </view>
+   <view class='weui-cells_title'>关键词3{{keyWords3}}</view>
+    <view class="weui-cell weui-cell_input">
+        <input class="weui-input" maxlength="10" bindinput="sentence3" placeholder="第三句" />
+      </view>

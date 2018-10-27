@@ -1,0 +1,29 @@
+/* pages/start/start.wxss */
+@import "/lib/weui.wxss";
+
+.page-section{
+  margin-bottom: 20rpx;
+}
+.button-hover {
+  background-color:cadetblue;
+  margin:10rpx;
+}
+
+.button_submit{
+  position:fixed;
+  bottom:0;
+  right:0;
+  width:2cm;
+  background-color:cadetblue;
+  margin:10rpx;
+}
+
+.submitSection {
+  position:fixed;
+  bottom:0;
+  }
+
+.submitSentence{
+  display:flex;
+}
+
