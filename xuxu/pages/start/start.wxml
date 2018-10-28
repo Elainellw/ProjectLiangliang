@@ -23,7 +23,9 @@
   {{index}}: {{item.sentence}}
 </view>
 
-
+<view wx:for="{{sentences}}">
+  {{index}}: {{item.keyWord}}
+</view>
 
 
 
