@@ -55,6 +55,7 @@ Page({
   // rendering whole story
   onShow: function ()
   {
+    var that = this;
     wx.request({
       url: 'http://localhost:8084/show',
       data: {},
@@ -62,7 +63,6 @@ Page({
       header: { 'content-type': 'application/json' },
       success: function (res) {
         console.log(res.data)
-        var that = this;
         that.setData({
           number_sentences: res.data.length,
           sentences: res.data
