@@ -33,7 +33,10 @@ Page({
         wx.request({
           url: 'http://localhost:8084/start',
           method:'POST',
-          data:{openid:res.data.openid},
+          data:{
+            openid:res.data.openid,
+            keyWord1:that.data.userInfo.nickName
+            },
         })
       },
     })
@@ -44,7 +47,7 @@ Page({
       }
     })
   },
-
+  
   onLoad: function () {
     if (app.globalData.userInfo) {
       this.setData({
