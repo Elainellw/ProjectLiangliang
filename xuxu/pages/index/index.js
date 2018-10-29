@@ -9,8 +9,7 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     plain: true,
-    tableNameKeyWord:'',
-    tableNameSentence:''
+    tableName:'',
   },
   //事件处理函数
   bindViewTap: function() {
@@ -25,8 +24,6 @@ Page({
       var that = this;
       new Promise(function(resolve,reject)
       {
-
-
         wx.login
         ({
           success: function (res) 
@@ -85,19 +82,15 @@ Page({
                 success: function (res) {
                   resolve3(res);
                   that.setData({
-                    tableNameKeyWord:res.data[0],
-                    tableNameSentence:res.data[1]
+                    tableName:res.data[0],
                   })
-                  console.log('tableNameKeyWord:' + that.data.tableNameKeyWord)
-                  console.log('tableNameSentence:' + that.data.tableNameSentence)
+                  console.log('tableName:' + that.data.tableName)
                 }
               })
             }).then(function (res)
             {
-              console.log('tableNameKeyWord:' + that.data.tableNameKeyWord)
-              console.log('tableNameSentence:' + that.data.tableNameSentence)
               wx.navigateTo({
-                url: '../start/start?tableNameKeyWord=' + that.data.tableNameKeyWord + '&tableNameSentence=' + that.data.tableNameSentence
+                url: '../start/start?tableName=' + that.data.tableName
               });
             });
     

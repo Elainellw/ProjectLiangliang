@@ -20,8 +20,7 @@ connection.connect();
 var openid='';
 var table_name='';
 var exactDate='';
-var table_name_sentence='';
-var table_name_keyWord='';
+var table_name='';
 
 app.post('/start',function(req,res){
 
@@ -29,28 +28,19 @@ app.post('/start',function(req,res){
     	var chunk = "";
     	chunk += data;
     	var dataJson=JSON.parse(chunk);
-    	console.log('openid of the user：'+ dataJson.openid); 
+    	console.log('openid of the host：'+ dataJson.openid); 
     	openid=dataJson.openid;
     	var firstKeyWord=dataJson.keyWord1;
     	var nowDate=new Date();
     	var exactDate=nowDate.toLocaleDateString()+" "+nowDate.toLocaleTimeString();
-    	table_name_sentence = 'sentence_'+exactDate+' '+ openid;
-    	table_name_keyWord = 'keyWord_'+exactDate+' '+ openid;
+    	table_name = 'story_'+exactDate+' '+ openid;
     	
     	//create a table for the sentences
-    	var createTable="create table ?? (id int primary key auto_increment, sentence varchar(255))";
-    	connection.query(createTable, [table_name_sentence], function(err,result){
+    	var createTable="create table ?? (id int primary key auto_increment, sentence varchar(255), keyWord varchar(255), writerid varchar(255))";
+    	connection.query(createTable, [table_name], function(err,result){
            if (err) throw err;
-    		console.log('table for sentences created successfully!');
+    		console.log('New story created successfully!');
          })
-
-    	//create a table for the key words
-    	var createTable="create table ?? (id int primary key auto_increment, keyWord varchar(255))";
-    	connection.query(createTable, [table_name_keyWord], function(err,result){
-           if (err) throw err;
-    		console.log('table for key words created successfully!');
-         })
-
 
     	//record this event
     	connection.query('insert into event (openid, time) values (?,?)', [openid,exactDate], function(err,result){
@@ -58,17 +48,9 @@ app.post('/start',function(req,res){
     		console.log('event recorded!');
     	})
 
-    	//insert first key word;
-    	connection.query('insert into ?? (keyWord) values (?)', [table_name_keyWord, firstKeyWord], function(err,result){
-    		 if (err) throw err;
-    		console.log('First key word recorded!');
-    	})
-
       var arr=[];
-      arr[0]=table_name_keyWord;
-      arr[1]=table_name_sentence;
+      arr[0]=table_name;
       res.send(arr);
-
       res.end();
     });
 })
@@ -82,17 +64,12 @@ app.post('/insert',function(req,res){
 
     var newSentence=dataJson.sentence1;
     var nextKeyWord=dataJson.nextKeyWord;
-    var table_name_sentence=dataJson.tableNameSentence;
-    var table_name_keyWord=dataJson.tableNameKeyWord;
+    var table_name=dataJson.tableName;
+    var writerid=dataJson.writerid;
 
-    connection.query('insert into ?? (sentence) values (?)', [table_name_sentence, newSentence], function(err,result){
+    connection.query('insert into ?? (sentence, keyWord, writerid) values (?,?,?)', [table_name, newSentence, nextKeyWord, writerid], function(err,result){
     	if (err) throw err;
     		console.log('New sentence inserted successfully!');
-    })
-
-    connection.query('insert into ?? (keyWord) values (?)', [table_name_keyWord, nextKeyWord], function(err,result){
-    	if (err) throw err;
-    		console.log('Next key word inserted successfully!');
     })
 
     console.log(dataJson.sentence1); 
@@ -105,18 +82,18 @@ app.post('/insert',function(req,res){
 
 var arrSentences=[];
 app.get('/show',function(req,res){
-  var table_name_keyWord=req.query.tableNameKeyWord;
-  console.log(table_name_keyWord);
-	connection.query('select keyWord from ??', [table_name_keyWord], function(err,results){
+  var table_name=req.query.tableName;
+  console.log(table_name);
+	connection.query('select keyWord from ??', [table_name], function(err,results){
 		if (err) throw err;
 		for (var i=0;i<results.length;i++){
   		arrSentences[i]=results[i];
   		console.log('key word selected:'+ arrSentences);
-
- 
-    	res.send(arrSentences);	
-      res.end();
   }
+      
+     res.send(arrSentences);
+     res.end();
+
 	})
 })
 
