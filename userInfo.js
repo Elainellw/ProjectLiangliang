@@ -64,11 +64,13 @@ app.post('/start',function(req,res){
     		console.log('First key word recorded!');
     	})
 
+      var arr=[];
+      arr[0]=table_name_keyWord;
+      arr[1]=table_name_sentence;
+      res.send(arr);
+
+      res.end();
     });
-
-    res.writeHead(200,{"ContentType":"application/json;charset=utf-8"});
-    res.end();
-
 })
 
 app.post('/insert',function(req,res){
@@ -80,6 +82,8 @@ app.post('/insert',function(req,res){
 
     var newSentence=dataJson.sentence1;
     var nextKeyWord=dataJson.nextKeyWord;
+    var table_name_sentence=dataJson.tableNameSentence;
+    var table_name_keyWord=dataJson.tableNameKeyWord;
 
     connection.query('insert into ?? (sentence) values (?)', [table_name_sentence, newSentence], function(err,result){
     	if (err) throw err;
@@ -101,12 +105,17 @@ app.post('/insert',function(req,res){
 
 var arrSentences=[];
 app.get('/show',function(req,res){
+  var table_name_keyWord=req.query.tableNameKeyWord;
+  console.log(table_name_keyWord);
 	connection.query('select keyWord from ??', [table_name_keyWord], function(err,results){
 		if (err) throw err;
 		for (var i=0;i<results.length;i++){
   		arrSentences[i]=results[i];
   		console.log('key word selected:'+ arrSentences);
+
+ 
     	res.send(arrSentences);	
+      res.end();
   }
 	})
 })

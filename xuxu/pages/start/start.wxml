@@ -1,6 +1,5 @@
 <!--pages/start/start.wxml-->
 <view class='page-section'>
- </view>
 
 
 
@@ -18,23 +17,8 @@
 </view>
 </form>
 
-
-<view wx:for="{{trytry}}">
-  {{index}}: {{item.sentence}}
-</view>
-
 <view wx:for="{{sentences}}">
   {{index}}: {{item.keyWord}}
 </view>
 
-
-
-
-  <view class='weui-cells_title'>设置下一个关键词</view>
-   <view class="weui-cell weui-cell_input">
-        <input class="weui-input" maxlength="10" bindinput="sentence2" placeholder="关键词2" />
-      </view>
-   <view class='weui-cells_title'>关键词3{{keyWords3}}</view>
-    <view class="weui-cell weui-cell_input">
-        <input class="weui-input" maxlength="10" bindinput="sentence3" placeholder="第三句" />
-      </view>
+ </view>

@@ -3,21 +3,12 @@ const app=getApp()
 
 Page({
   data: {
-    inputValue:'',
     defaultSize:'default',
     plain:true,
     number_sentences:'',
     sentences:'',
-    trytry:[
-      {sentence:1},
-      {sentence:2}, 
-      {sentence:3},
-    ]
-  },
-  bindKeyInput:function(e){
-    this.setData({
-      inputValue: e.detail.value
-    })
+    tableNameKeyWord: '',
+    tableNameSentence: ''
   },
   
   formSubmit1:function(e){
@@ -26,6 +17,8 @@ Page({
     wx.request({
       url: 'http://localhost:8084/insert',
       data: {
+        tableNameKeyWord: that.data.tableNameKeyWord,
+        tableNameSentence: that.data.tableNameSentence,
         sentence1:e.detail.value.inputSentence,
         nextKeyWord:e.detail.value.nextKeyWord
       },
@@ -37,27 +30,28 @@ Page({
     })
   },
 
-  getKeyWords:function(e){
-    var that=this;
-    wx.request({
-      url: 'http://localhost:8082',
-      data: { },
-      header: { 'content-type': 'application/json' },           success: function (res) {
-        that.setData({
-          keyWords1:res.data[0].person,
-          keyWords2:res.data[0].do,
-          keyWords3:res.data[0].ppp,
-        })
-        console.log(res)
-      }
-    })
-  },
+  // getKeyWords: function (e) {
+  //   var that = this;
+  //   wx.request({
+  //     url: 'http://localhost:8082',
+  //     data: {},
+  //     header: { 'content-type': 'application/json' }, success: function (res) {
+  //       that.setData({
+  //         keyWords1: res.data[0].person,
+  //         keyWords2: res.data[0].do,
+  //         keyWords3: res.data[0].ppp,
+  //       })
+  //       console.log(res)
+  //     }
+  //   })
+  // },
+
   // rendering whole story
-  onShow: function ()
+  onShow: function (options)
   {
     var that = this;
     wx.request({
-      url: 'http://localhost:8084/show',
+      url: 'http://localhost:8084/show?tableNameKeyWord=' + that.options.tableNameKeyWord,
       data: {},
       method: 'GET',
       header: { 'content-type': 'application/json' },
@@ -69,7 +63,12 @@ Page({
         })
       }
     });
+    that.setData({
+      tableNameKeyWord:that.options.tableNameKeyWord,
+      tableNameSentence:that.options.tableNameSentence
+     })
   },
+
   onLoad: function (options) {
     
     wx.showShareMenu({
