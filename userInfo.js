@@ -67,6 +67,7 @@ app.post('/insert',function(req,res){
     var table_name=dataJson.tableName;
     var writerid=dataJson.writerid;
 
+
     connection.query('insert into ?? (sentence, keyWord, writerid) values (?,?,?)', [table_name, newSentence, nextKeyWord, writerid], function(err,result){
     	if (err) throw err;
     		console.log('New sentence inserted successfully!');
@@ -82,21 +83,32 @@ app.post('/insert',function(req,res){
 
 
 app.get('/show',function(req,res){
-  var arrSentences=[];
   var table_name=req.query.tableName;
   console.log(table_name);
-	connection.query('select sentence from ??', [table_name], function(err,results)
-  {
-		if (err) throw err;
-		for (var i=0;i<results.length;i++)
-    {
-  		arrSentences[i]=results[i];
-    }
-      
-    res.send(arrSentences);
-    res.end();
 
-	})
+  var arr=[];
+  var lastKeyWord='';
+
+  new Promise(function(resolve, reject){
+    connection.query('select sentence from ??', [table_name], function(err,results){
+        if (err) throw err;
+        for (var i=0;i<results.length;i++){
+          arr[i]=results[i];
+        }
+        connection.query('select keyWord from ?? order by id desc limit 1', [table_name], function(err,result){
+          if (err) throw err;
+          if (result.length!=0){
+            lastKeyWord=result[0];
+            console.log('Assigned keyWord: '+lastKeyWord)
+            arr[results.length]=lastKeyWord;
+          }
+          resolve(arr)
+        })
+    })
+  }).then(function(arr){
+        res.send(arr);
+        res.end();
+  })
 })
 
 

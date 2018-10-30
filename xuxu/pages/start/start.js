@@ -8,7 +8,8 @@ Page({
     sentences:'',
     tableName: '',
     count:0,
-    writerid:''
+    writerid:'',
+    keyWord:''
   },
   
   formSubmit1:function(e){
@@ -58,9 +59,24 @@ Page({
       header: { 'content-type': 'application/json' },
       success: function (res) {
         console.log(res.data)
-        that.setData({
-          sentences: res.data
-        })
+        var tempSentences=[];
+        var i = 0
+        for(i=0;i<res.data.length-1;i++){
+          tempSentences[i]=res.data[i];
+        }
+        // retrieve the last item
+        if(res.data.length>0&&res.data[0]!=null){
+          var tempKeyword = res.data[i];
+          that.setData({
+            sentences: tempSentences,
+            keyWord: tempKeyword.keyWord
+          });
+        }else{
+          that.setData({
+            sentences: tempSentences,
+            keyWord: app.globalData.userInfo.nickName
+          });
+        }
       }
     });
 
