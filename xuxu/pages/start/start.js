@@ -13,7 +13,7 @@ Page({
   
   formSubmit1:function(e){
     var that = this;
-    count+=1;
+    that.data.count+=1;
     console.log('input sentence: '+e.detail.value.nextKeyWord)
     wx.request({
       url: 'http://localhost:8084/insert',
@@ -24,9 +24,9 @@ Page({
         nextKeyWord:e.detail.value.nextKeyWord
       },
       method:'POST',
-      header: { 'content-type': 'application/json;charset=UTF-8' },          success: function (res) {
-        console.log(res)
-        that.onLoad()
+      header: { 'content-type': 'application/json;charset=UTF-8' },                success: function (res) {
+          console.log(res)
+          that.onShow()
       },
     })
   },
@@ -59,7 +59,6 @@ Page({
       success: function (res) {
         console.log(res.data)
         that.setData({
-          number_sentences: res.data.length,
           sentences: res.data
         })
       }
@@ -106,11 +105,9 @@ Page({
      })
   },
 
-  onLoad: function (options) {
-    
+  onLoad: function (options) { 
     wx.showShareMenu({
       withShareTicket:true
     });
-
   }
 })

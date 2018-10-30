@@ -80,19 +80,21 @@ app.post('/insert',function(req,res){
 })
 
 
-var arrSentences=[];
+
 app.get('/show',function(req,res){
+  var arrSentences=[];
   var table_name=req.query.tableName;
   console.log(table_name);
-	connection.query('select keyWord from ??', [table_name], function(err,results){
+	connection.query('select sentence from ??', [table_name], function(err,results)
+  {
 		if (err) throw err;
-		for (var i=0;i<results.length;i++){
+		for (var i=0;i<results.length;i++)
+    {
   		arrSentences[i]=results[i];
-  		console.log('key word selected:'+ arrSentences);
-  }
+    }
       
-     res.send(arrSentences);
-     res.end();
+    res.send(arrSentences);
+    res.end();
 
 	})
 })
