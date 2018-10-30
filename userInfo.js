@@ -59,25 +59,37 @@ app.post('/insert',function(req,res){
     var chunk = "";
    
     req.on('data',function(data){
-    chunk += data;
-    var dataJson=JSON.parse(chunk);
+          chunk += data;
+          var dataJson=JSON.parse(chunk);
 
-    var newSentence=dataJson.sentence1;
-    var nextKeyWord=dataJson.nextKeyWord;
-    var table_name=dataJson.tableName;
-    var writerid=dataJson.writerid;
+          var newSentence=dataJson.sentence1;
+          var nextKeyWord=dataJson.nextKeyWord;
+          var table_name=dataJson.tableName;
+          var writerid=dataJson.writerid;
 
-
-    connection.query('insert into ?? (sentence, keyWord, writerid) values (?,?,?)', [table_name, newSentence, nextKeyWord, writerid], function(err,result){
-    	if (err) throw err;
-    		console.log('New sentence inserted successfully!');
+          new Promise(function(resolve,reject)
+          {
+                connection.query('select writerid from ?? order by id desc limit 1', [table_name],function(err,result){
+                  if (err) throw err;
+                  console.log('writerid selected:'+result)
+                  if (result.length==0||result[0].writerid!=writerid){
+                      resolve();
+                  }else{
+                      reject();
+                  }
+                })
+          }).then(function(){
+                connection.query('insert into ?? (sentence, keyWord, writerid) values (?,?,?)', [table_name, newSentence, nextKeyWord, writerid], function(err,result){
+                  if (err) throw err;
+                  console.log('New sentence inserted successfully!');
+                  res.send('inserted');
+                  res.end();
+                })
+            }).catch(function(){
+                res.send('repetitive');
+                res.end();
+          })
     })
-
-    console.log(dataJson.sentence1); 
-    });
-
-    res.writeHead(200,{"ContentType":"application/json;charset=utf-8"});
-    res.end();
 })
 
 
@@ -99,7 +111,7 @@ app.get('/show',function(req,res){
           if (err) throw err;
           if (result.length!=0){
             lastKeyWord=result[0];
-            console.log('Assigned keyWord: '+lastKeyWord)
+            console.log('Assigned keyWord: '+lastKeyWord.keyWord)
             arr[results.length]=lastKeyWord;
           }
           resolve(arr)

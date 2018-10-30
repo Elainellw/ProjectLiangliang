@@ -14,22 +14,39 @@ Page({
   
   formSubmit1:function(e){
     var that = this;
-    that.data.count+=1;
-    console.log('input sentence: '+e.detail.value.nextKeyWord)
-    wx.request({
-      url: 'http://localhost:8084/insert',
-      data: {
-        tableName: that.data.tableName,
-        writerid:that.data.writerid,                    
-        sentence1:e.detail.value.inputSentence,
-        nextKeyWord:e.detail.value.nextKeyWord
-      },
-      method:'POST',
-      header: { 'content-type': 'application/json;charset=UTF-8' },                success: function (res) {
-          console.log(res)
-          that.onShow()
-      },
-    })
+    if (e.detail.value.inputSentence.includes(that.data.keyWord)){
+        that.data.count+=1;
+        console.log('input sentence: '+e.detail.value.nextKeyWord)
+        wx.request({
+          url: 'http://localhost:8084/insert',
+          data: {
+            tableName: that.data.tableName,
+            writerid:that.data.writerid,                    
+            sentence1:e.detail.value.inputSentence,
+            nextKeyWord:e.detail.value.nextKeyWord
+          },
+          method:'POST',
+          header: { 'content-type': 'application/json;charset=UTF-8' },         success: function (res) {
+              if (res.data=='inserted'){
+                console.log('new sentence inserted!');
+                that.onShow();  //是否可以替换为直接修改sentences?
+              }else if (res.data=='repetitive'){
+                console.log(res);
+                wx.showModal({
+                  title: '提示',
+                  content: '请不要连续输入哦',
+                  showCancel: false,
+                });
+              }
+          },
+        })
+    }else{
+        wx.showModal({
+          title:'提示',
+          content:'输入的句子需包含关键字',
+          showCancel:false,
+        })
+    }
   },
 
     // onShareAppMessage: function (res) {
