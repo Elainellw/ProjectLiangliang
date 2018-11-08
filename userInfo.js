@@ -33,7 +33,7 @@ app.post('/start',function(req,res){
     	var firstKeyWord=dataJson.keyWord1;
     	var nowDate=new Date();
     	var exactDate=nowDate.toLocaleDateString()+" "+nowDate.toLocaleTimeString();
-    	table_name = 'story_'+exactDate+' '+ openid;
+    	table_name = 's'+exactDate+'/'+ openid;
     	
     	//create a table for the sentences
     	var createTable="create table ?? (id int primary key auto_increment, sentence varchar(255), keyWord varchar(255), writerid varchar(255)) CHARACTER SET=utf8mb4";
@@ -65,7 +65,16 @@ app.post('/insert',function(req,res){
           var newSentence=dataJson.sentence1;
           var nextKeyWord=dataJson.nextKeyWord;
           var table_name=dataJson.tableName;
-          var writerid=dataJson.writerid;
+	  console.log('get table_name: '+table_name);
+
+	  var StringDecoder = require('string_decoder').StringDecoder;
+          var d = new StringDecoder('utf8');
+          var b = Buffer(table_name);
+	  var table_name=d.write(b);		
+          console.log('write buffer table nema:'+b); //write buffer
+          // write decoded buffer;
+          console.log('decoded table name: '+table_name);
+	  var writerid=dataJson.writerid;
 
           new Promise(function(resolve,reject)
           {
@@ -96,7 +105,7 @@ app.post('/insert',function(req,res){
 
 app.get('/show',function(req,res){
   var table_name=req.query.tableName;
-  console.log(table_name);
+  console.log('on show: '+table_name);
 
   var arr=[];
   var lastKeyWord='';
