@@ -1,6 +1,8 @@
 //index.js
 //获取应用实例
 const app = getApp()
+// global
+var dest = app.globalData.Host.productUrl;
 
 Page({
   data: {
@@ -62,7 +64,7 @@ Page({
               },
               fail: function (err)
               {
-                var msg = 'authorize wechar user info failed';
+                var msg = 'authorize wechat user info failed';
                 reject2(msg);
               }
             });
@@ -72,13 +74,18 @@ Page({
             {
               wx.request
               ({
-                url: 'http://localhost:8084/start',
+                url: 'http://'+ dest + ':8084/start',
                 method: 'POST',
                 data: 
                 {
                   openid: res.data.openid,
                   keyWord1: app.globalData.userInfo.nickName
                 },
+                  fail: function (err) {
+                    var errMessarge = JSON.stringify(err);
+                    console.log('failed creating new event')
+                    console.log('err message: ' + errMessarge)
+                  },
                 success: function (res) {
                   resolve3(res);
                   that.setData({
@@ -90,7 +97,7 @@ Page({
             }).then(function (res)
             {
               wx.navigateTo({
-                url: '../start/start?tableName=' + that.data.tableName
+                url: '../start/start?tableName=' + that.data.tableName+'&count=0' //count用来判断是否是初次建表
               });
             });
     

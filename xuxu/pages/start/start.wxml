@@ -3,22 +3,29 @@
 
 
 
- <form bindsubmit="formSubmit1">
-<view class='submitSection'>
-  <view class="submitSentence" style="flex-direction:row;">
-       <view class='section_title'>句子接龙：</view>
-       <input name='inputSentence' class="weui-input" maxlength="50" placeholder="关键词'{{keyWord}}'" />
-  </view>
-  <view class="submitSentence" style="flex-direction:row;">
-        <view class='section_title'>下一个关键词：</view>
-       <input name='nextKeyWord' class="weui-input" maxlength="50" placeholder="在此输入" />
-       <button formType='submit' class="button_submit"> 提交 </button>
-  </view>
-</view>
+<form bindsubmit="formSubmit1">
+    <view class='submitSection'>
+      <view class="submitSentence" style="flex-direction:row;">
+          <view class='section_title'>句子接龙：</view>
+          <input name='inputSentence' class="weui-input" maxlength="50" placeholder="关键词'{{keyWord}}'" />
+      </view>
+      <view class="submitSentence" style="flex-direction:row;">
+            <view class='section_title'>下一个关键词：</view>
+          <input name='nextKeyWord' class="weui-input" maxlength="20" placeholder="在此输入" />
+      </view>
+      <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+      <button wx:else formType='submit' class="button_submit"> 提交 </button>
+    </view>
 </form>
 
-<view wx:for="{{sentences}}" >
-  {{index}}: {{item.sentence}}
+<view wx:for="{{story}}" >
+  <view class="showSentences"style="flex-direction:row;">
+     <view class="sentence">{{item.sentence}} </view>
+      <block >
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{item.avatarUrl}}" mode="cover"></image>
+        <text class="userinfo-nickname">{{item.nickName}}</text>
+      </block>
+  </view>
 </view>
 
  </view>
