@@ -113,27 +113,20 @@ Page({
     })
   },
 
-    // onShareAppMessage: function (res) {
-    //   var that=this;
-    //   if(res.from === 'button') {
-    //   //来自邀请好友按钮
-    //   return{
-    //     title:'邀请好友续写'
-    //     path:'pages/start/start?tableName='+
-    //   }
-    //    console.log(res.target)
-    //    }
-    //   return {
- 
-    //   }
-    // },
+    onShareAppMessage: function (res) {
+      var that=this;
+      return{
+        title:'邀请好友续写',
+        path:'pages/start/start?tableName='+that.data.tableName
+      }  
+    },
 
 
   // rendering whole story
   onShow: function (options)
   {
     var that = this;
-    //exhibite the existed story on show 
+    //exhibit the existed story on show 
     wx.request({
       url: 'http://' + dest + ':8084/show?tableName=' + that.options.tableName,
       data: {},

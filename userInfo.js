@@ -11,7 +11,7 @@ var connection = mysql.createConnection({
   user     : 'root',
   password : 'Wangyl@2011',
   database : 'xuxu',
-  socketPath: '/tmp/mysql.sock',
+  socketPath: '/var/run/mysqld/mysqld.sock',
   multipleStatements:true,
 });
 connection.connect();
@@ -36,7 +36,7 @@ app.post('/start',function(req,res){
     	table_name = 'story_'+exactDate+' '+ openid;
     	
     	//create a table for the sentences
-    	var createTable="create table ?? (id int primary key auto_increment, sentence varchar(255), keyWord varchar(255), writerid varchar(255))";
+    	var createTable="create table ?? (id int primary key auto_increment, sentence varchar(255), keyWord varchar(255), writerid varchar(255)) CHARACTER SET=utf8mb4";
     	connection.query(createTable, [table_name], function(err,result){
            if (err) throw err;
     		console.log('New story created successfully!');
