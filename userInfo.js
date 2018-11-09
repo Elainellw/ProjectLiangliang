@@ -36,7 +36,7 @@ app.post('/start',function(req,res){
     	table_name = 's'+exactDate+'/'+ openid;
     	
     	//create a table for the sentences
-    	var createTable="create table ?? (id int primary key auto_increment, sentence varchar(255), keyWord varchar(255), writerid varchar(255)) CHARACTER SET=utf8mb4";
+    	var createTable="create table ?? (id int primary key auto_increment, sentence varchar(255), keyWord varchar(255), writerid varchar(255), nickName varchar(255), avatarUrl varchar(255)) CHARACTER SET=utf8mb4";
     	connection.query(createTable, [table_name], function(err,result){
            if (err) throw err;
     		console.log('New story created successfully!');
@@ -56,12 +56,12 @@ app.post('/start',function(req,res){
 })
 
 app.post('/insert',function(req,res){
-    var chunk = "";
    
     req.on('data',function(data){
-          chunk += data;
+          var chunk='';
+	  chunk += data;
           var dataJson=JSON.parse(chunk);
-
+        
           var newSentence=dataJson.sentence1;
           var nextKeyWord=dataJson.nextKeyWord;
           var table_name=dataJson.tableName;
@@ -75,6 +75,8 @@ app.post('/insert',function(req,res){
           // write decoded buffer;
           console.log('decoded table name: '+table_name);
 	  var writerid=dataJson.writerid;
+	  var nickName=dataJson.nickName;
+	  var avatarUrl=dataJson.avatarUrl;
 
           new Promise(function(resolve,reject)
           {
@@ -88,7 +90,7 @@ app.post('/insert',function(req,res){
                   }
                 })
           }).then(function(){
-                connection.query('insert into ?? (sentence, keyWord, writerid) values (?,?,?)', [table_name, newSentence, nextKeyWord, writerid], function(err,result){
+                connection.query('insert into ?? (sentence, keyWord, writerid, nickName, avatarUrl) values (?,?,?,?,?)', [table_name, newSentence, nextKeyWord, writerid, nickName, avatarUrl], function(err,result){
                   if (err) throw err;
                   console.log('New sentence inserted successfully!');
                   res.send('inserted');
@@ -111,8 +113,9 @@ app.get('/show',function(req,res){
   var lastKeyWord='';
 
   new Promise(function(resolve, reject){
-    connection.query('select sentence from ??', [table_name], function(err,results){
+    connection.query('select sentence, nickName, avatarUrl from ??', [table_name], function(err,results){
         if (err) throw err;
+	console.log('story: '+results)
         for (var i=0;i<results.length;i++){
           arr[i]=results[i];
         }
