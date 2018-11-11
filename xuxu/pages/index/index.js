@@ -74,7 +74,7 @@ Page({
             {
               wx.request
               ({
-                url: 'http://'+ dest + ':8084/start',
+                url: 'http://'+ dest + ':80/start',
                 method: 'POST',
                 data: 
                 {

@@ -22,7 +22,7 @@ Page({
     console.log('input sentence: ' + e.detail.value.inputSentence )
     console.log('input keyword: ' + e.detail.value.nextKeyWord)
     console.log('destination: '+dest)
-    console.log('url:' + 'http://' + dest + ':8084/insert')
+    console.log('url:' + 'http://' + dest + ':80/insert')
     //get user id 
     new Promise(function (resolve, reject) {
       wx.login
@@ -64,7 +64,7 @@ Page({
             console.log('input sentence: ' + e.detail.value.nextKeyWord)
             console.log('table name pass to backend: ' + that.data.tableName)
             wx.request({
-              url: 'http://' + dest + ':8084/insert',
+              url: 'http://' + dest + ':80/insert',
               data: {
                 tableName: that.data.tableName,
                 writerid: that.data.writerid,
@@ -128,7 +128,7 @@ Page({
     var that = this;
     //exhibit the existed story on show 
     wx.request({
-      url: 'http://' + dest + ':8084/show?tableName=' + that.options.tableName,
+      url: 'http://' + dest + ':80/show?tableName=' + that.options.tableName,
       data: {},
       method: 'GET',
       header: { 'content-type': 'application/json' },
