@@ -1,0 +1,26 @@
+{
+  "name": "ProjectLiangliang",
+  "version": "1.0.0",
+  "description": "shushu proj",
+  "main": "userInfo.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mysql": "^2.16.0",
+    "query-string": "^6.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Elainellw/ProjectLiangliang.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Elainellw/ProjectLiangliang/issues"
+  },
+  "homepage": "https://github.com/Elainellw/ProjectLiangliang#readme"
+}
