@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/Elainellw/ProjectLiangliang/issues"
   },
-  "homepage": "https://github.com/Elainellw/ProjectLiangliang#readme"
+  "homepage": "https://github.com/Elainellw/ProjectLiangliang#readme",
+  "scripts": {
+    "start": "node userInfo.js"
+  }
 }
