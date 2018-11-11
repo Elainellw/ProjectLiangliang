@@ -137,9 +137,10 @@ app.get('/show',function(req,res){
 
 
 
-console.log('Server running on 8084...');
+var listenPort = process.argv[2];
+console.log('Server running on '+ listenPort + '...');
 
-var server = app.listen(8084, function () {   
+var server = app.listen(listenPort, function () {   
   var host = server.address().address
   var port = server.address().port
   console.log("Address visited: http://%s:%s", host, port)

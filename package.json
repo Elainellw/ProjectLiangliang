@@ -24,6 +24,6 @@
   },
   "homepage": "https://github.com/Elainellw/ProjectLiangliang#readme",
   "scripts": {
-    "start": "node userInfo.js"
+    "start": "node userInfo.js 8084 & node userInfo.js 8085"
   }
 }
