@@ -35,7 +35,7 @@ App({
   globalData: {
     userInfo: null,
     AppID: 'wxaf35825c9a1af4d0',
-    AppSecret: 'd363ab74887c3f80:c48e44fbd6497d10',
+    AppSecret: 'd363ab74887c3f80c48e44fbd6497d10',
     "Host": {
       "testUrl": "localhost",
       "productUrl": "70.37.52.161"

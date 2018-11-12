@@ -2,6 +2,15 @@
 <view class='page-section'>
 
 
+<view wx:for="{{story}}" >
+  <view class="showSentences"style="flex-direction:row;">
+     <view class="sentence">{{item.sentence}} </view>
+      <block >
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{item.avatarUrl}}" mode="cover"></image>
+        <text class="userinfo-nickname">{{item.nickName}}</text>
+      </block>
+  </view>
+</view>
 
 <form bindsubmit="formSubmit1">
     <view class='submitSection'>
@@ -18,14 +27,5 @@
     </view>
 </form>
 
-<view wx:for="{{story}}" >
-  <view class="showSentences"style="flex-direction:row;">
-     <view class="sentence">{{item.sentence}} </view>
-      <block >
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{item.avatarUrl}}" mode="cover"></image>
-        <text class="userinfo-nickname">{{item.nickName}}</text>
-      </block>
-  </view>
-</view>
 
- </view>
+</view>
