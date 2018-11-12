@@ -1,8 +1,20 @@
 /**index.wxss**/
+.page
+{
+  height: 100%;
+}
+
+.page__bd
+{
+  height: 100%;
+}
+
 .userinfo {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 30%;
+  position: relative;
 }
 
 .userinfo-avatar {
@@ -17,7 +29,10 @@
 }
 
 .usermotto {
-  margin-top: 100px;
+  margin-top: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .button-hover{
@@ -25,3 +40,15 @@
 }
 
 button {margin: 10px;}
+
+.div-top-blank{
+  width: 100%;
+  height: 33%;
+  position: relative;
+}
+
+.newStory{
+  padding-top: 5%;
+  margin-left: 30%;
+  margin-right: 30%;
+}
