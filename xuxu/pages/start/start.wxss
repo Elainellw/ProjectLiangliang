@@ -5,25 +5,24 @@
 }
 .button-hover {
   background-color:cadetblue;
-  margin:10rpx;
 }
 
 .button_submit{
-  position:fixed;
-  bottom:0;
-  right:0;
-  width:2cm;
-  background-color:cadetblue;
-  margin:10rpx;
+  position:relative;
+  margin-bottom:0;
+  margin-right:0;
 }
 
 .submitSection {
   position:fixed;
   bottom:0;
+  width: 100%;
   }
 
 .submitSentence{
   display:flex;
+  justify-content: space-between;
+  height: 7.5%;
 }
 
 .userinfo-avatar {
@@ -35,4 +34,9 @@
 
 .userinfo-nickname {
   color: #aaa;
+}
+
+.nextKeyword{
+  position: relative;
+  margin-right: 0;
 }

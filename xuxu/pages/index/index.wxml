@@ -4,22 +4,26 @@
   <view class="page__hd">
   </view>
   <view class="page__bd page__bd_spacing">
-    <view class="userinfo">
-      <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-      <block wx:else>
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-      </block>
+    <view class="centerFlex">
+      <view class="userinfo centerWidth">
+        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+        <block wx:else>
+          <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+          <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        </block>
+      </view>
+      <view  class="centerinfo centerWidth">
+        <view style="text-align:center">
+          <text >{{motto}}</text>
+        </view>
+        <view class="newStory">
+          <button class="weui-btn" type="default" plain="true" bindtap="startNewOne">新的续1s</button>
+        </view>
+      </view>
     </view>
-    <view class="usermotto">
-      <text>{{motto}}</text>
-    </view>
-    <view class="newStory">
-    <button class="weui-btn" type="default" plain="true" bindtap="startNewOne">新的续1s</button>
-    </view>
-    <view class="weui-footer" style="position:fixed; bottom:0;width: 100%;">
+    <view class="weui-footer footer" style="position:fixed; bottom:0;width: 100%;">
       <view class="weui-footer__links">
-          <navigator url="" class="weui-footer__link">Xuxu ios 版</navigator>
+          <navigator url="" class="weui-footer__link">xuxu ios 版</navigator>
       </view>
       <view class="weui-footer__text">Copyright © 风满楼工作室</view>
     </view>
