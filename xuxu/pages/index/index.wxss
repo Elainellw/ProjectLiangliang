@@ -44,7 +44,7 @@
 
 .centerinfo {
   height: 20%;
-  margin-bottom: 30%;
+  margin-bottom: 35%;
 }
 
 .button-hover{
