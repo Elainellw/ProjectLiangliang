@@ -113,7 +113,7 @@ app.get('/show',function(req,res){
   var lastKeyWord='';
 
   new Promise(function(resolve, reject){
-    connection.query('select sentence, nickName, avatarUrl from ??', [table_name], function(err,results){
+    connection.query('select sentence, nickName, avatarUrl, keyWord from ??', [table_name], function(err,results){
         if (err) throw err;
 	console.log('story: '+results)
         for (var i=0;i<results.length;i++){
