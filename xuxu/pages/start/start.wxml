@@ -24,9 +24,9 @@
 
       </view>
       <view class="submitSentence" style="flex-direction:row;">
-          <view class="weui-cells__title weui-cell__bd weui-cell_input" style="padding-top:8px">
+          <view class="weui-cells__title weui-cell__bd weui-cell_input">
             <textarea name = 'inputSentence' class="weui-textarea" maxlength="200" 
-            placeholder="你的续续" auto-height style="height: 1.4rem; width=80%;" fixed='true' />
+            placeholder="你的续续" auto-height style="height: 1.4rem; width:80%;color:black;" fixed='true' />
           </view>
           <view class="weui-cells__title ">
             <button wx:if="{{!hasUserInfo && canIUse}}" class="weui-btn mini-btn"
