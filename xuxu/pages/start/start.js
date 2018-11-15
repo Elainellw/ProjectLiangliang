@@ -71,7 +71,8 @@ Page({
                 sentence1: e.detail.value.inputSentence,
                 nextKeyWord: e.detail.value.nextKeyWord,
                 nickName: that.data.userInfo.nickName,
-                avatarUrl: that.data.userInfo.avatarUrl
+                avatarUrl: that.data.userInfo.avatarUrl,
+                count:that.data.count
               },
               method: 'POST',
               header: { 'content-type': 'application/json;charset=UTF-8' }, fail: function (err) {
@@ -93,6 +94,13 @@ Page({
                   wx.showModal({
                     title: '错误提示',
                     content: '请不要连续输入哦',
+                    showCancel: false,
+                  });
+                }else if (res.data=='slow'){
+                  console.log(res);
+                  wx.showModal({
+                    title: '错误提示',
+                    content: '已经被别人抢先一步续写了',
                     showCancel: false,
                   });
                 }
@@ -154,7 +162,8 @@ Page({
         }else{
           that.setData({
             story: tempStory,
-            keyWord: app.globalData.userInfo.nickName
+            keyWord: app.globalData.userInfo.nickName,
+            count:tempStory.length
           });
         }
       }
