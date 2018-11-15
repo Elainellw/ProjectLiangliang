@@ -1,16 +1,23 @@
 <!--pages/start/start.wxml-->
 <view class="page">
 
-
-<view wx:for="{{story}}" >
-  <view class="showSentences"style="flex-direction:row;">
-     <view class="sentence">{{item.sentence}} </view>
-      <block >
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{item.avatarUrl}}" mode="cover"></image>
-        <text class="userinfo-nickname">{{item.nickName}}</text>
-      </block>
-  </view>
+<view>
+  <text></text>
 </view>
+<block wx:for="{{story}}" >
+  <view class="showSentences">
+      <view style="display:flex;flex-direction:row;">
+          <view class="userinfo-avatar">
+              <image class="userinfo-avatar" src="{{item.avatarUrl}}" mode="aspectFit"></image>
+          </view>
+          <view class="showSentences sentenceSectionMargin">
+              <view class="sentence">续续:{{item.keyWord}}</view>
+              <view class="line"></view>
+              <view class="sentence">  {{item.sentence}} </view>
+          </view>
+      </view>
+  </view>
+</block>
 
 <view>
 <form bindsubmit="formSubmit1">
