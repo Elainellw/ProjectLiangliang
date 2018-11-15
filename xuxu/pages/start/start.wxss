@@ -26,18 +26,47 @@
 }
 
 .userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
+  display: block;
+  width: 60px;
+  height: 60px;
+  margin-left: 1%;
   border-radius: 50%;
 }
 
 .userinfo-nickname {
   color: #aaa;
+  margin-left: 5%;
+  font-size: 14px;
 }
 
 .nextKeyword{
   position: relative;
   margin-right: 0;
   color: black;
+}
+.showSentences
+{
+  display:flex;
+  flex-direction:column;
+  flex: 1;
+}
+.sentence{
+  font-size: 14px;
+  flex: 1;
+  margin-top:2%;
+}
+
+.headshotContainer{
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.line{
+  width: 100%;
+  border-top:1px #989898 solid;
+}
+
+.sentenceSectionMargin{
+  margin-left: 2%;
+  margin-right: 3%;
 }

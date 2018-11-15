@@ -148,7 +148,7 @@ Page({
         if(res.data.length>0&&res.data[0]!=null){
           var tempKeyword = res.data[i];
           that.setData({
-            story: tempStory,//story includes sentences, nickName and avatarUrl
+            story: tempStory,//story includes sentences, nickName and avatarUrl and keyword
             keyWord: tempKeyword.keyWord
           });
         }else{
