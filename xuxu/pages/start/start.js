@@ -100,7 +100,7 @@ Page({
                   console.log(res);
                   wx.showModal({
                     title: '错误提示',
-                    content: '已经被别人抢先一步续写了',
+                    content: '已经被别人抢先一步续写了,下拉刷新试试吧',
                     showCancel: false,
                   });
                 }
@@ -129,6 +129,59 @@ Page({
       }  
     },
 
+  onPullDownRefresh: function () {
+    console.log('pull down refresh');
+    wx.request({
+      url: 'http://' + dest + ':80/show?tableName=' + that.options.tableName,
+      data: {},
+      method: 'GET',
+      header: { 'content-type': 'application/json' },
+      fail: function (err) {
+        var errMessarge = JSON.stringify(err);
+        console.log('failed')
+        console.log('err message: ' + errMessarge)
+      },
+      success: function (res) {
+        console.log(res.data)
+        var tempStory = [];
+        var i = 0
+        for (i = 0; i < res.data.length - 1; i++) {
+          tempStory[i] = res.data[i];
+        }
+        // retrieve the last item
+        if (res.data.length > 0 && res.data[0] != null) {
+          var tempKeyword = res.data[i];
+          //alert if keyWord changed
+          if (tempKeyword!=that.data.keyWord){
+            wx.showModal({
+              title: '提示',
+              content: '关键词已经更新',
+              showCancel: false,
+            })
+          }
+          //refresh the story
+          that.setData({
+            story: tempStory,//story includes sentences, nickName and avatarUrl and keyword
+            keyWord: tempKeyword.keyWord
+          });
+        } else {
+          that.setData({
+            story: tempStory,
+            keyWord: app.globalData.userInfo.nickName,
+            count: tempStory.length
+          });
+        }
+      },
+    }),
+
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    //模拟加载
+    setTimeout(function () {
+      // complete
+      wx.hideNavigationBarLoading() //完成停止加载
+      wx.stopPullDownRefresh() //停止下拉刷新
+    }, 1500);
+  },
 
   // rendering whole story
   onShow: function (options)
